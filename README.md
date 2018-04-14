@@ -1,5 +1,8 @@
 Ansj for Spark
 ==============
+
+**Ansj中Analysis、GetWordsImpl未序列化，无法在Spark中并行执行，现修改如下：**
+
 1. 序列化 org.ansj.splitWord.Analysis
 2. 序列化 org.ansj.splitWord.impl.GetWordsImpl
 ```
@@ -8,12 +11,17 @@ public abstract class Analysis implements Serializable
 public class GetWordsImpl implements GetWords, Serializable
 ```
 
-使用命令构建jar包（跳过签名加密阶段），生成的jar包详见项目根目录下：ansj_seg-5.1.6.jar
+3. 使用命令构建jar包（跳过签名加密阶段），生成的jar包详见项目根目录下：ansj_seg-5.1.6.jar
+
 ```
 mvn install -Dgpg.skip
 ```
 
+---
 
+我是分割线，下面是原Ansj的README.md。
+
+---
 
 Ansj中文分词
 ==================
@@ -59,7 +67,7 @@ Ansj中文分词
 <pre><code>
  String str = "欢迎使用ansj_seg,(ansj中文分词)在这里如果你遇到什么问题都可以联系我.我一定尽我所能.帮助大家.ansj_seg更快,更准,更自由!" ;
  System.out.println(ToAnalysis.parse(str));
- 
+
  ﻿欢迎/v,使用/v,ansj/en,_,seg/en,,,(,ansj/en,中文/nz,分词/n,),在/p,这里/r,如果/c,你/r,遇到/v,什么/r,问题/n,都/d,可以/v,联系/v,我/r,./m,我/r,一定/d,尽我所能/l,./m,帮助/v,大家/r,./m,ansj/en,_,seg/en,更快/d,,,更/d,准/a,,,更/d,自由/a,!
 </code></pre>
 
